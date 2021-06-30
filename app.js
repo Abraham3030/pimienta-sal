@@ -6,7 +6,7 @@ const PORT          = process.env.PORT || 3000;
 const publicPath    = path.resolve(__dirname, './public');
 
 // configuracion de las rutas
-const mainRoutes  = require('./routes/mainRoutes');
+const listMealsRoutes = require('./routes/listMealsRoutes');
 
 // configuracion para archivos estaticos de la carpeta public (fotos, css, etc)
 app.use( express.static( publicPath ));
@@ -17,7 +17,15 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // MVC configuracion del controlador
-app.use('/', mainRoutes);
+app.use('/', listMealsRoutes);
+
+app.use(function(err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    res.status(err.status || 500);
+    res.render('error');
+});
 
 // Servidor escuchando
 app.listen(PORT, () => {

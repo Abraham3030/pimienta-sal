@@ -5,26 +5,30 @@
   <body>
     <!-- Navbar (sit on top) -->
     <%- include('./partials/navbar') %>
-    
-
-    
 
     <!-- Page content -->
     <div class="ps-content">
-
+      
       <!-- Menu Section -->
       <div class="ps-row ps-padding-64" id="menu">
         <div class="ps-col l6 ps-padding-large">
-          <h1 class="ps-center"><%= meal.name%></h1>
-          <br />            
-          <h4><%=meal.description || "Platillo tipico"%></h4>
+          <h1 class="ps-center">Nuentro Menu</h1>
+          <br />
+          <% for(let i = 0; i< meals.length; i ++) {%>
+            <a href=<%= `/meal/detail/${meals[i].id}` %> >
+              <h4><%= meals[i].name %></h4>
+            </a>
+            
           <p class="ps-text-grey">
-            <%= `${meal.currency} ${meal.price}` %>
+            <%= `${meals[i].description}  ${meals[i].currency}  ${meals[i].price}` %>
           </p>
+          <br />
+          <% } %>
         </div>
+
         <div class="ps-col l6 ps-padding-large ps-img-menu">
           <img
-            src= <%= meal.img %>
+            src="/images/menu.jpg"
             class="ps-round ps-image ps-opacity-min"
             alt="Menu"
           />
